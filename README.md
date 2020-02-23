@@ -53,3 +53,7 @@ The goal of the project is to aid in avoidance of food wastage. The app will pro
 
 4. Technology stack
 React, Javascript, Nodejs, mysql, R.
+
+We will use react framework for our view part(frontend), MYSql as database to store information of buyers and sellers, and nodejs for connection.
+
+Further, we will create our dataset and use R to create graphs and display trends and predictions.
