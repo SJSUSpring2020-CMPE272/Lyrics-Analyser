@@ -56,4 +56,4 @@ React, Javascript, Nodejs, mysql, R.
 
 We will use react framework for our view part(frontend), MYSql as database to store information of buyers and sellers, and nodejs for connection.
 
-Further, we will create our dataset and use R to create graphs and display trends and predictions.
+Further, we will create our dataset comprising of users registered along with their details and use R to create graphs and display trends and predictions.
