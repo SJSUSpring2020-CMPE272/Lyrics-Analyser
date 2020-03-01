@@ -24,7 +24,7 @@ For the front end, we will create a website and host it either on AWS/GCP/R Stud
 
 1. Project Title 
 Musical Lyrics Analysis 
- 
+# Approved
  
 2. Project idea description 
 The project is based on natural language processing over the existing lyrical dataset of over 5000+ popular songs and then using machine learning algorithms to generate a prediction model for guessing popularity of new songs based on keywords extracted from the lyrical dataset. The prediction model will be based upon the data extracted from already hit songs and will try to estimate the popularity of new songs based upon song’s length, repetition of words, usage of pop culture keywords. 
