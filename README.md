@@ -2,10 +2,12 @@
 
 (Group Members: Amit Sharma, Ambika Na, Deepa Vyasabhat, Jaspreet Singh)
 
+# Project Architecture
+<img src="Architecture/architecture.png" height="625">
+
 # Project Idea-2
 
-1. Project Title 
-Musical Lyrics Analysis 
+1. Project Title : Lyrics Analyser 
 # Approved
  
 2. Project idea description 
