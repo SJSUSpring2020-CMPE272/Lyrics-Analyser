@@ -1,4 +1,21 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Setup and run
+```
+Install nodejs and npm on host machine.
+#start backend:
+cd Backend
+npm install
+npm start
+
+#start frontend
+cd lyricsfrontend
+npm install
+npm install react-d3-cloud
+npm install react-vis
+(if any installations error: rm -rf rm -rf package-lock.json )
+npm start
+ 
+```
 
 ## Available Scripts
 
