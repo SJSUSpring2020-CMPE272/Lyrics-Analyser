@@ -1,0 +1,9 @@
+Billboard Dataset
+
+Overview of Complete DataSet Values  : {'Total Songs in DataSet': 4327, 'Total Words': 617254, 'Unique Words': 38905, 'Avg Length Per Song': 143}
+Transformed Dataset extracted Features [ Len Avg, Most Rep Avg, Avg Rep, Unique Avg, Normalize Length] :[143, 15.78, 9.21, 68.5, 183]
+
+Other Dataset
+
+Overview of Complete DataSet Values  : {'Total Songs in DataSet': 3979, 'Total Words': 380978, 'Unique Words': 22635, 'Avg Length Per Song': 96}
+Transformed Dataset extracted Features [ Len Avg, Most Rep Avg, Avg Rep, Unique Avg, Normalize Length] :[96, 9.65, 5.84, 54.85, 112]
