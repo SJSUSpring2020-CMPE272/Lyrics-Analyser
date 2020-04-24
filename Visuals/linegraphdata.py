@@ -3,7 +3,7 @@ import csv as csv
 #Open the file in read mode 
 
 #Data generation for scatterplot
-text = open("featured_dataset.csv", "r") 
+text = open("../NLP_ML/input/billboard_abs_features_dataset.csv", "r") 
 outtext1 = open("linegraph1.txt","w")
 outtext2 = open("linegraph2.txt","w")
 outtext4 = open("linegraph4.txt","w")
@@ -12,9 +12,12 @@ outtext4 = open("linegraph4.txt","w")
   
 # Create an empty dictionary 
 d = dict() 
-  
+count=0
 # Loop through each line of the file 
 for line in text: 
+    if count==1000:
+        break;
+    count=count+1
     # Remove the leading spaces and newline character 
     line = line.strip() 
   
@@ -36,7 +39,7 @@ outtext4.close()
 text.close()
 
 #Data generation for bar graph
-readdata = csv.reader(open('featured_dataset.csv', 'r')) 
+readdata = csv.reader(open('../NLP_ML/input/billboard_abs_features_dataset.csv', 'r')) 
 data = []
 for row in readdata:
     data.append(row)
