@@ -15,16 +15,14 @@ def add_input_string():
 #Running NLP script on user input string
 def run_nlp():
     print("RUNNING NLP")
-    os.system('python3 ../NLP/Project_Source_Code.py '+ INPUT_FILE + ' ' + OUTPUT_FILE)
+    os.system('python3 ../NLP_ML/Python_File.py ' + input_string)
 
-if __name__ == "__main__":
-    # Takes first name and last name via command
-    # line arguments and then display them
-    print("Output from Python")
-    #print(sys.argv)
-    #print("First name: " + sys.argv[1])
-    #print("Last name: " + sys.argv[2])
-    input_string = sys.argv[1]
-    print(input_string)
-    add_input_string()
-    run_nlp()
+
+#if __name__ == "__main__":
+# Takes first name and last name via command
+# line arguments and then display them
+print("Output from Python")
+input_string = sys.argv[1]
+print(input_string)
+#add_input_string()
+run_nlp()
