@@ -50,6 +50,7 @@ class UserHome extends Component {
 
     submitClicked = () => {
 		this.state.tableData=[]
+		this.state.wordCloudArray=[]
         let values = {string:this.state.stringValue, user_id:localStorage.getItem('user_id'), date:moment().format('YYYY/MM/DD') };
         console.log(values)
         	trackPromise(axios.post(valuesExport.url + 'user/searchString/', JSON.stringify(values), {
