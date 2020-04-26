@@ -6,8 +6,11 @@ import { Redirect } from 'react-router';
 import moment from 'moment';
 import Table from './table.js';
 import { trackPromise } from 'react-promise-tracker';
+import WordCloud from "react-d3-cloud";
+
 
 const { TextArea } = Input;
+const fontSizeMapper = word => Math.log2(word.value) * 5;
 
 class UserHome extends Component {
 
@@ -16,16 +19,15 @@ class UserHome extends Component {
         this.state={
             stringValue:'',
             lyricsSearched:[],
-			      tableData:[]
+			tableData:[],
+			wordCloudArray: [],
         }
-
     }
 
     async componentDidMount(){
         await axios.get(valuesExport.url  + 'user/pastSearch/' + localStorage.getItem('user_id'))
     .then((response) => {
       if (response.status === 200) {
-          console.log(JSON.stringify(response.data.searchValues))
         if(response.data.searchValues.length){
             this.setState({
                 lyricsSearched:response.data.searchValues
@@ -60,7 +62,6 @@ class UserHome extends Component {
             .then(async res => {
                 if (res.status >= 400) {
                     console.log(res)
-
                 }
 
                 else {
@@ -94,13 +95,19 @@ class UserHome extends Component {
 					if(parseFloat(value) >= .5)
 						popular="Popular"
 					this.state.tableData.push({'Algorithm': "Absolute LRC", 'Value': res.data['Absolute LRC'], 'Popular/Not Popular': popular,'Accuracy': res.data['LRC Accuracy'] });
+					
+					
+					//get the wordcloud data
+					var array=res.data["User Wordcloud"]
+					array.forEach(item => this.state.wordCloudArray.push({text: item['text'], value: 100}))
                     this.setState({
-						tableData:this.state.tableData
+						tableData:this.state.tableData,
+						wordCloudArray: this.state.wordCloudArray
                     })
+				
                     await axios.get(valuesExport.url  + 'user/pastSearch/' + localStorage.getItem('user_id'))
                     .then((response) => {
                       if (response.status === 200) {
-                          console.log(JSON.stringify(response.data.searchValues))
                         if(response.data.searchValues.length){
                             this.setState({
                                 lyricsSearched:response.data.searchValues
@@ -134,6 +141,13 @@ class UserHome extends Component {
 		    } else {
 		        myComponent = null
 		    }
+			
+		let wordCloudComponent;
+			    if(this.state.wordCloudArray.length>0) {
+			        wordCloudComponent = <WordCloud data= {this.state.wordCloudArray} fontSizeMapper={fontSizeMapper} width="500" height="500"/>
+			    } else {
+			        wordCloudComponent = null
+			    }
         return (
             <div>
                 <div>
@@ -142,7 +156,6 @@ class UserHome extends Component {
                             <Col span={11}>
                         <Card title={name} style={{ textAlign:'center', fontSize: '32px'}}>
                             <Card.Grid style={{ width: '100%' }}>
-
                             <h3 style={{font: 'italic bold 20px/30px Georgia, serif'}}>Please enter lyrics string: </h3>
                             <TextArea rows={4} onChange={this.getStringValue} />
                             <Button type="primary" style={{marginTop:'2%'}} onClick={this.submitClicked}>Submit</Button>
@@ -161,15 +174,16 @@ class UserHome extends Component {
         </Col>
 
 
-                        </Row>
+            </Row>
+			<Row>
+			{wordCloudComponent}
+
+           	</Row>
 						<Row>
     <Col span={1}></Col>
         <Col span={22}>
         <Card title='Your journey with us...'    hoverable>
-
-            {console.log(this.state.lyricsSearched)}
             {this.state.lyricsSearched.map((val, ind) =>{
-
             return    <div key={ind}>
                  <Card.Grid style={{ width: '100%' }} hoverable>
                 <Row>
