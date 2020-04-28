@@ -20,6 +20,7 @@ class UserHome extends Component {
             stringValue:'',
             lyricsSearched:[],
 			tableData:[],
+      normTableData:[],
 			wordCloudArray: [],
         }
     }
@@ -50,6 +51,7 @@ class UserHome extends Component {
 
     submitClicked = () => {
 		this.state.tableData=[]
+    this.state.normTableData=[]
 		this.state.wordCloudArray=[]
         let values = {string:this.state.stringValue, user_id:localStorage.getItem('user_id'), date:moment().format('YYYY/MM/DD') };
         console.log(values)
@@ -66,7 +68,7 @@ class UserHome extends Component {
                 }
 
                 else {
-					console.log(JSON.stringify(res))
+                  console.log(res)
 					var popular="Not Popular";
 					var value=res.data['Absolute RFC CLASSIFICATION']
 					value=value.replace(/[\[\]]/g, "");
@@ -97,12 +99,46 @@ class UserHome extends Component {
 						popular="Popular"
 					this.state.tableData.push({'Algorithm': "Absolute LRC", 'Value': res.data['Absolute LRC'], 'Popular/Not Popular': popular,'Accuracy': res.data['LRC Accuracy'] });
 					
-					
+          
+          popular="Not Popular";
+          value=res.data['Normalized RF Accuracy']
+        //  value=value.replace(/[\[\]]/g, "");
+          if(parseFloat(value) >= .5)
+            popular="Popular"
+          this.state.normTableData.push({'Algorithm': "Normalized RF Accuracy", 'Value': res.data['Normalized RFC CLASSIFICATION'], 'Popular/Not Popular': popular,'Accuracy': res.data['Normalized RF Accuracy'] });
+
+           popular="Not Popular";
+          value=res.data['Normalized RFR REGRESSION']
+          value=value.replace(/[\[\]]/g, "");
+          if(parseFloat(value) >= .5)
+            popular="Popular"
+
+          this.state.normTableData.push({'Algorithm': "Normalized RFR REGRESSION", 'Value': res.data['Normalized RFR REGRESSION'], 'Popular/Not Popular': popular,'Accuracy': res.data['Normalized RF Accuracy'] });
+
+          popular="Not Popular";
+          value=res.data['Normalized KNN CLASSIFICATION']
+          value=value.replace(/[\[\]]/g, "");
+          if(parseFloat(value) >= .5)
+            popular="Popular"
+
+          this.state.normTableData.push({'Algorithm': "Normalized KNN CLASSIFICATION", 'Value': res.data['Normalized KNN CLASSIFICATION'], 'Popular/Not Popular': popular,'Accuracy': res.data['KNN Accuracy'] });
+
+          popular="Not Popular";
+          value=res.data['Normalized LRC']
+          value=value.replace(/[\[\]]/g, "");
+          if(parseFloat(value) >= .5)
+            popular="Popular"
+          this.state.normTableData.push({'Algorithm': "Normalized LRC", 'Value': res.data['Normalized LRC'], 'Popular/Not Popular': popular,'Accuracy': res.data['LRC Accuracy'] });
+          
+
+
+
 					//get the wordcloud data
 					var array=res.data["User Wordcloud"]
 					array.forEach(item => this.state.wordCloudArray.push({text: item['text'], value: 100}))
                     this.setState({
 						tableData:this.state.tableData,
+            normTableData:this.state.normTableData,
 						wordCloudArray: this.state.wordCloudArray
                     })
 				
@@ -142,6 +178,13 @@ class UserHome extends Component {
 		    } else {
 		        myComponent = null
 		    }
+
+    let normComponent;
+        if(this.state.normTableData.length>0) {
+            normComponent = <Table data={this.state.normTableData}/>
+        } else {
+            normComponent = null
+        }
 			
 		let wordCloudComponent;
 			    if(this.state.wordCloudArray.length>0) {
@@ -172,12 +215,23 @@ class UserHome extends Component {
 			{myComponent}
             </Card.Grid>
         </Card>
+
+
         </Col>
 
 
             </Row>
 			<Row>
+                  <Col span={11}>
 			{wordCloudComponent}
+      </Col>
+                  <Col span={11}>
+        <Card style={{ textAlign:'center'}}>
+        <Card.Grid style={{ width: '100%' }}>
+      {normComponent}
+            </Card.Grid>
+        </Card>
+        </Col>
 
            	</Row>
 						<Row>
