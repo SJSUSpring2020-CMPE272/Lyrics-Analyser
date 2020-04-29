@@ -32,7 +32,7 @@ def clean(song_lyric):
 
     for word in song_lyric.split(' '):
         word = word.lower()
-        if len(word) > 3:
+        if len(word) > 2:
             final_song_lyric.append(word)
 
     return final_song_lyric
@@ -263,11 +263,13 @@ def parse_user_input(user_string):
     output['User Wordcloud'] = wordcloud_user_list
     #output['Dataset Wordcloud'] = wordcloud_dataset_list
 
-    if absolute_list[0]<10 or normalized_list[4]<0.05 or normalized_list[5]<0.07:
+    if absolute_list[0]<15 or normalized_list[4]<0.08 or normalized_list[5]<0.09:
         output['Absolute RFC CLASSIFICATION'] = str([0])
         output['Normalized RFC CLASSIFICATION'] = str([0])
         output['Absolute KNN CLASSIFICATION'] = str([0])
-        output['Normalized KNN CLASSIFICATION'] = str([0])
+        output['Normalized KNN CLASSIFICATION'] = str([0])       
+        output['Absolute RFR REGRESSION'] = str([0])
+        output['Normalized RFR REGRESSION'] = str([0])
 
     value1 = float(str(output['Absolute RFC CLASSIFICATION']).replace("[","").replace("]",""))+float(str(output['Absolute RFR REGRESSION']).replace("[","").replace("]",""))
     value2 = float(str(output['Normalized RFC CLASSIFICATION']).replace("[","").replace("]",""))+float(str(output['Normalized RFR REGRESSION']).replace("[","").replace("]",""))
@@ -276,12 +278,12 @@ def parse_user_input(user_string):
 
     verdict = value1+value2+value3+value4
     index = 0
-    if verdict > 2.5:
+    if verdict > 3.25:
         for val in normalized_list:
             index = index + float(val)
-        index = (index + verdict)*10
-        if(index>10):
-            index= 100
+        index = (index + verdict)*7.5
+        if(index>13):
+            index = 100
         output['verdict'] = ["POPULAR", index]
     else:
         output['verdict'] = ["NEEDS IMPROVEMENT",index]
