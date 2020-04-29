@@ -290,35 +290,7 @@ WeightUnique: 25.23
     
     </Row>
     <Row>
-        <Col span={22}>
-        <Card title='Your journey with us...'    hoverable>
-            {this.state.lyricsSearched.map((val, ind) =>{
-            return    <div key={ind}>
-                 <Card.Grid style={{ width: '100%' }} hoverable>
-                <Row>
-                    <Col span = {8}>
-               <h3>Lyrics searched: </h3>
-                   </Col>
-                   <Col span = {16}>
-                   <h3>{val.lyrics}</h3>
-                   </Col>
-               </Row>
-               <Row>
-               <Col span = {8}>
-
-               <h3>Date: </h3>
-               </Col>
-               <Col span = {8}>
-               <h4>{moment(val.date).format('MMM')+' '+moment(val.date).format('DD')+', '
-               +moment(val.date).format('YYYY')}</h4>
-               </Col>
-               </Row>
-               </Card.Grid>
-                </div>
-
-            })}
-        </Card>
-        </Col>
+       
 
 
 						</Row>

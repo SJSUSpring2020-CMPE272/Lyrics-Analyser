@@ -4,7 +4,7 @@ import Headers from './header';
 import { Layout, Row, Col, Carousel, Card } from 'antd';
 import "antd/dist/antd.css";
 
-import './../index.css'
+//import './../index.css'
 
 const { Content } = Layout;
 
@@ -74,7 +74,7 @@ class WelcomePage extends Component {
                             </Content>
                             <Footer />
                         </Layout>
-                        
+
                     </Row>
                 </div>
            
