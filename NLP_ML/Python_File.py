@@ -3,15 +3,10 @@ import pandas as pd
 import RandomForest
 import KNN
 import LogisticRegression
-import sys
 import json
-
-
 import sys
-import csv
-import os
 
-INPUT_FILE = "input/user_input_songs.csv"
+
 OUTPUT_FILE = "data.txt"
 
 BILLBOARD_DATASET = { 'Len Avg' : 143 , 'Most Rep Avg' : 15.78 , 'Avg Rep' : 9.21 , 'Unique Avg' : 68.5 , 'Normalize Length' : 183 }
@@ -304,22 +299,13 @@ def parse_user_input(user_string):
     #    print(str(key)+"   "+str(output[key]))
 
     # Write output in file
-    with open('data.txt', 'w') as outfile:
+    with open(OUTPUT_FILE, 'w') as outfile:
         json.dump(output, outfile)
 
-    with open('data.txt', 'r') as f:
+    with open(OUTPUT_FILE, 'r') as f:
 	    print(f.read())
 
     return output
-
-
-#add string to the input osv of NLP script
-def add_input_string():
-    fields=['user name',input_string[:10],'link',input_string]
-    with open(r''+INPUT_FILE, 'a') as f:
-        writer = csv.writer(f)
-        writer.writerow(fields)
-
 
 if __name__ == '__main__':
     user_string = sys.argv[1]
