@@ -35,7 +35,7 @@ class Dashboard extends Component {
 			<br/>
 			<br/>
 
-	  	  	<h2>Length of song vs popularity</h2>
+	  	  	<h2>Length of song vs Unique Weight</h2>
 	  	   <XYPlot
 	        width={500}
 	        height={500}>
@@ -52,7 +52,7 @@ class Dashboard extends Component {
 
 
 
-          <h2>Most repeated words vs popularity</h2>
+          <h2>Most repeated words vs Unique Weight</h2>
          <XYPlot
           width={500}
           height={500}>
@@ -69,7 +69,7 @@ class Dashboard extends Component {
 
 
 
-          <h2>Unique words vs popularity</h2>
+          <h2>Unique words vs Unique Weight</h2>
          <XYPlot
           width={500}
           height={500}>

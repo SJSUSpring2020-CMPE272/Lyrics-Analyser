@@ -7,7 +7,7 @@ import moment from 'moment';
 import Table from './table.js';
 import { trackPromise } from 'react-promise-tracker';
 import WordCloud from "react-d3-cloud";
-
+import {XYPlot, XAxis, YAxis, HorizontalGridLines, MarkSeries,VerticalBarSeries} from 'react-vis';
 
 const { TextArea } = Input;
 const fontSizeMapper = word => Math.log2(word.value) * 5;
@@ -22,6 +22,7 @@ class UserHome extends Component {
 			tableData:[],
       normTableData:[],
 			wordCloudArray: [],
+      barGraphArray: [],
         }
     }
 
@@ -68,7 +69,37 @@ class UserHome extends Component {
                 }
 
                 else {
-                  console.log(res)
+                  console.log(JSON.stringify(res))
+
+          /*
+          {x: 'Length', y: 142},
+  {x: 'Most', y: 15},
+  {x: 'Average', y: 9},
+  {x: 'Unique', y: 68},
+  {x: 'WeightLength', y: 43},
+  {x: 'WeightUnique', y: 68}  
+  */
+
+        // populate the bar graph data
+        /*
+        "User Graph Features ":
+Length: 137
+Most: 19
+Average: 12.6
+Unique: 59
+WeightLength: 15.9
+WeightUnique: 25.23
+        */
+        var userGraphFeatures=res.data["User Graph Features "]
+        this.state.barGraphArray.push({x: 'Length', y: userGraphFeatures['Length']})
+        this.state.barGraphArray.push({x: 'Most', y: userGraphFeatures["Most"]})
+        this.state.barGraphArray.push({x: 'Average', y: userGraphFeatures["Average"]})
+        this.state.barGraphArray.push({x: 'Unique', y: userGraphFeatures["Unique"]})
+        this.state.barGraphArray.push({x: 'WeightLength', y: userGraphFeatures["WeightLength"]})
+        this.state.barGraphArray.push({x: 'WeightUnique', y: userGraphFeatures["WeightUnique"]})
+
+        console.log(this.state.barGraphArray)
+        console.log(JSON.stringify(this.state.barGraphArray))
 					var popular="Not Popular";
 					var value=res.data['Absolute RFC CLASSIFICATION']
 					value=value.replace(/[\[\]]/g, "");
@@ -99,13 +130,12 @@ class UserHome extends Component {
 						popular="Popular"
 					this.state.tableData.push({'Algorithm': "Absolute LRC", 'Value': res.data['Absolute LRC'], 'Popular/Not Popular': popular,'Accuracy': res.data['LRC Accuracy'] });
 					
-          
           popular="Not Popular";
           value=res.data['Normalized RF Accuracy']
         //  value=value.replace(/[\[\]]/g, "");
           if(parseFloat(value) >= .5)
             popular="Popular"
-          this.state.normTableData.push({'Algorithm': "Normalized RF Accuracy", 'Value': res.data['Normalized RFC CLASSIFICATION'], 'Popular/Not Popular': popular,'Accuracy': res.data['Normalized RF Accuracy'] });
+          this.state.normTableData.push({'Algorithm': "Normalized RFC CLASSIFICATION", 'Value': res.data['Normalized RFC CLASSIFICATION'], 'Popular/Not Popular': popular,'Accuracy': res.data['Normalized RF Accuracy'] });
 
            popular="Not Popular";
           value=res.data['Normalized RFR REGRESSION']
@@ -129,9 +159,7 @@ class UserHome extends Component {
           if(parseFloat(value) >= .5)
             popular="Popular"
           this.state.normTableData.push({'Algorithm': "Normalized LRC", 'Value': res.data['Normalized LRC'], 'Popular/Not Popular': popular,'Accuracy': res.data['LRC Accuracy'] });
-          
-
-
+        
 
 					//get the wordcloud data
 					var array=res.data["User Wordcloud"]
@@ -139,7 +167,8 @@ class UserHome extends Component {
                     this.setState({
 						tableData:this.state.tableData,
             normTableData:this.state.normTableData,
-						wordCloudArray: this.state.wordCloudArray
+						wordCloudArray: this.state.wordCloudArray,
+            barGraphArray: this.state.barGraphArray
                     })
 				
                     await axios.get(valuesExport.url  + 'user/pastSearch/' + localStorage.getItem('user_id'))
@@ -192,6 +221,22 @@ class UserHome extends Component {
 			    } else {
 			        wordCloudComponent = null
 			    }
+    let barGraphComponent;
+        if(this.state.barGraphArray.length>0){
+            barGraphComponent =   <React.Fragment>
+    <XYPlot xType="ordinal"
+        width={500} 
+            height={250}>
+        <XAxis>Features in Dataset</XAxis>
+        <YAxis>Average</YAxis>
+            <VerticalBarSeries
+              className="bar-series-example"
+              data={this.state.barGraphArray}/>
+            </XYPlot>
+            </React.Fragment>
+        }else{
+          barGraphComponent=null
+        }
         return (
             <div>
                 <div>
@@ -222,9 +267,10 @@ class UserHome extends Component {
 
             </Row>
 			<Row>
-                  <Col span={11}>
-			{wordCloudComponent}
-      </Col>
+
+      <Col span={11}>{barGraphComponent}</Col>
+
+                  
                   <Col span={11}>
         <Card style={{ textAlign:'center'}}>
         <Card.Grid style={{ width: '100%' }}>
@@ -232,10 +278,18 @@ class UserHome extends Component {
             </Card.Grid>
         </Card>
         </Col>
-
            	</Row>
 						<Row>
-    <Col span={1}></Col>
+            <Col span={22}>
+             <Card style={{ textAlign:'center'}}>
+        <Card.Grid style={{ width: '100%' }}>
+      {wordCloudComponent}
+       </Card.Grid>
+        </Card>
+      </Col>
+    
+    </Row>
+    <Row>
         <Col span={22}>
         <Card title='Your journey with us...'    hoverable>
             {this.state.lyricsSearched.map((val, ind) =>{
