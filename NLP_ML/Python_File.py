@@ -6,6 +6,14 @@ import LogisticRegression
 import sys
 import json
 
+
+import sys
+import csv
+import os
+
+INPUT_FILE = "input/user_input_songs.csv"
+OUTPUT_FILE = "data.txt"
+
 BILLBOARD_DATASET = { 'Len Avg' : 143 , 'Most Rep Avg' : 15.78 , 'Avg Rep' : 9.21 , 'Unique Avg' : 68.5 , 'Normalize Length' : 183 }
 OTHER_DATASET = { 'Len Avg' : 96 , 'Most Rep Avg' : 9.65 , 'Avg Rep' : 5.84 , 'Unique Avg' : 54.85 , 'Normalize Length' : 112 }
 top_1000_words = pd.read_csv("../NLP_ML/input/top_words.csv")
@@ -14,7 +22,8 @@ for index, rows in top_1000_words.iterrows():
     top_words[rows[1]] = rows[2]
 
 def clean(song_lyric):
-    symbols_to_remove = ["\n", "'", ",", "]", "[", ")", "(", ":", ".", "-", "?", "!"]
+    song_lyric = song_lyric.replace("\n"," ")
+    symbols_to_remove = [ "'", ",", "]", "[", ")", "(", ":", ".", "-", "?", "!"]
 
     for each_symbol in symbols_to_remove:
         song_lyric = song_lyric.replace(each_symbol, "")
@@ -62,7 +71,10 @@ def unique_words_in_song(song):
 
 
 def length_wt(avg_length, gap_length, song_length):
-    value = abs(song_length - avg_length)
+    if(song_length>10):
+        value = abs(song_length - avg_length)
+    else:
+        value = gap_length
     value = round(value / gap_length, 2)
     value = round(1 - value, 2)
     if (value <= 0):
@@ -176,10 +188,12 @@ def parse_user_input(user_string):
 
     #    print(f"Calculated Total Weight By Total Length : {round(songs_words_wt_length,2)}")
     #    print(f"Calculated Total Weight By Unique Words Length : {round(songs_words_wt_unique,2)}")
-
-    normalised_wt_by_length = round(songs_words_wt_length / features_in_song[0], 2)
-    normalised_wt_by_unique = round(songs_words_wt_unique / features_in_song[3], 2)
-
+    if(songs_words_wt_length>0):
+        normalised_wt_by_length = round(songs_words_wt_length / features_in_song[0], 2)
+        normalised_wt_by_unique = round(songs_words_wt_unique / features_in_song[3], 2)
+    else:
+        normalised_wt_by_length = 0
+        normalised_wt_by_unique = 0
     #    print(f"Normalized Weight By Total Length : {normalised_wt_by_length}")
     #    print(f"Normalized Weight By Unique Words Length : {normalised_wt_by_unique}")
 
@@ -249,14 +263,51 @@ def parse_user_input(user_string):
     output['User Wordcloud'] = wordcloud_user_list
     #output['Dataset Wordcloud'] = wordcloud_dataset_list
 
+    if absolute_list[0]<10 or normalized_list[4]<0.05 or normalized_list[5]<0.07:
+        output['Absolute RFC CLASSIFICATION'] = str([0])
+        output['Normalized RFC CLASSIFICATION'] = str([0])
+        output['Absolute KNN CLASSIFICATION'] = str([0])
+        output['Normalized KNN CLASSIFICATION'] = str([0])
 
-    for key in output:
-        print(str(key)+"   "+str(output[key]))
+    value1 = float(str(output['Absolute RFC CLASSIFICATION']).replace("[","").replace("]",""))+float(str(output['Absolute RFR REGRESSION']).replace("[","").replace("]",""))
+    value2 = float(str(output['Normalized RFC CLASSIFICATION']).replace("[","").replace("]",""))+float(str(output['Normalized RFR REGRESSION']).replace("[","").replace("]",""))
+    value3 = float(str(output['Absolute LRC'].replace("[","")).replace("]",""))+ float(str(output['Normalized LRC']).replace("[","").replace("]",""))
+    value4 = float(str(output['Absolute KNN CLASSIFICATION']).replace("[","").replace("]",""))+float(str(output['Normalized KNN CLASSIFICATION']).replace("[","").replace("]",""))
+
+    verdict = value1+value2+value3+value4
+    index = 0
+    if verdict > 2.5:
+        for val in normalized_list:
+            index = index + float(val)
+        index = (index + verdict)*10
+        if(index>10):
+            index= 100
+        output['verdict'] = ["POPULAR", index]
+    else:
+        output['verdict'] = ["NEEDS IMPROVEMENT",index]
+    #output['Dataset Wordcloud'] = wordcloud_dataset_list
+
+
+    #for key in output:
+    #    print(str(key)+"   "+str(output[key]))
 
     # Write output in file
     with open('data.txt', 'w') as outfile:
         json.dump(output, outfile)
+
+    with open('data.txt', 'r') as f:
+	    print(f.read())
+
     return output
+
+
+#add string to the input osv of NLP script
+def add_input_string():
+    fields=['user name',input_string[:10],'link',input_string]
+    with open(r''+INPUT_FILE, 'a') as f:
+        writer = csv.writer(f)
+        writer.writerow(fields)
+
 
 if __name__ == '__main__':
     user_string = sys.argv[1]

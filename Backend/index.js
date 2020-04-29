@@ -138,7 +138,7 @@ callPython = async (values) => {
 
         var dataToSend;
         // spawn new child process to call the python script
-        const python = spawn('python', ['testPython.py',
+        const python = spawn('python', ['../NLP_ML/Python_File.py',
         values.string]);
         // collect data from script
         python.stdout.on('data', async function (data) {
