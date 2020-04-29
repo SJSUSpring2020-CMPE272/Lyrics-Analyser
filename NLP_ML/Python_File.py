@@ -32,7 +32,7 @@ def clean(song_lyric):
 
     for word in song_lyric.split(' '):
         word = word.lower()
-        if len(word) > 2:
+        if len(word) > 3:
             final_song_lyric.append(word)
 
     return final_song_lyric
@@ -249,7 +249,7 @@ def parse_user_input(user_string):
     absoulte_graph['Unique'] = absolute_list[3]
     absoulte_graph['WeightLength'] = absolute_list[4]
     absoulte_graph['WeightUnique'] = absolute_list[5]
-    output['User Graph Features '] = absoulte_graph
+    output['User Graph Features'] = absoulte_graph
 
     output['Absolute Features'] = absolute_list
     output['Normalized Features'] = normalized_list
@@ -272,7 +272,7 @@ def parse_user_input(user_string):
     output['User Wordcloud'] = wordcloud_user_list
     #output['Dataset Wordcloud'] = wordcloud_dataset_list
 
-    if absolute_list[0]<15 or normalized_list[4]<0.08 or normalized_list[5]<0.09:
+    if absolute_list[0]<20 or normalized_list[4]<0.10 or normalized_list[5]<0.10:
         output['Absolute RFC CLASSIFICATION'] = str([0])
         output['Normalized RFC CLASSIFICATION'] = str([0])
         output['Absolute KNN CLASSIFICATION'] = str([0])
@@ -287,10 +287,10 @@ def parse_user_input(user_string):
 
     verdict = value1+value2+value3+value4
     index = 0
-    if verdict > 3.25:
+    if verdict > 4.3:
         for val in normalized_list:
             index = index + float(val)
-        index = (index + verdict)*9.25
+        index = (index/6 + verdict/8)*50
         index = round(index,2)
         if(index>100):
             index = 100

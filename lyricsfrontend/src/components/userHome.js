@@ -82,7 +82,7 @@ class UserHome extends Component {
 
                     // populate the bar graph data
                     /*
-                    "User Graph Features ":
+                    "User Graph Features":
             Length: 137
             Most: 19
             Average: 12.6
@@ -90,8 +90,8 @@ class UserHome extends Component {
             WeightLength: 15.9
             WeightUnique: 25.23
                     */
-                    var userGraphFeatures = res.data["User Graph Features "]
-                    this.state.barGraphArray.push({ x: 'Length', y: userGraphFeatures['Length'] })
+                    var userGraphFeatures = res.data["User Graph Features"]
+                    this.state.barGraphArray.push({ x: 'Length', y: userGraphFeatures["Length"] })
                     this.state.barGraphArray.push({ x: 'Most', y: userGraphFeatures["Most"] })
                     this.state.barGraphArray.push({ x: 'Average', y: userGraphFeatures["Average"] })
                     this.state.barGraphArray.push({ x: 'Unique', y: userGraphFeatures["Unique"] })
@@ -131,7 +131,7 @@ class UserHome extends Component {
                     this.state.tableData.push({ 'Algorithm': "Absolute LRC", 'Value': res.data['Absolute LRC'], 'Popular/Not Popular': popular, 'Accuracy': res.data['LRC Accuracy'] });
 
                     popular = "Not Popular";
-                    value = res.data['Normalized RF Accuracy']
+                    value = res.data['Normalized RFC CLASSIFICATION']
                     //  value=value.replace(/[\[\]]/g, "");
                     if (parseFloat(value) >= .5)
                         popular = "Popular"
