@@ -59,7 +59,6 @@ app.get('/', (req, res) => res.send('YO! RUNNING!'))
 
 
 app.post('/user/add/', function (req, res) {
-    console.log(req.body)
     user.findOne({ emailid: req.body.emailid }, async (error, emailid) => {
         console.log("finding emailid")
 
@@ -85,7 +84,7 @@ app.post('/user/add/', function (req, res) {
                 password: encryptpassword,
                 date: req.body.date
             });
-            console.log(newUser)
+          //  console.log(newUser)
             user.create(newUser, (error, data) => {
                 if (error) {
                     res.status(400).send('error');
@@ -105,7 +104,7 @@ app.post('/user/add/', function (req, res) {
 })
 
 app.post('/user/login/', function (req, res) {
-    console.log(req.body);
+  //  console.log(req.body);
     user.findOne({ emailid: req.body.emailid },
         async (err, result) => {
             if (err) {
@@ -171,7 +170,7 @@ insertInDB = (values) => {
                 $push: {
                     'searchValues': {
                         lyrics: values.string,
-                        date: values.dat,
+                        date: values.date,
 
                     }
 
@@ -196,7 +195,7 @@ insertInDB = (values) => {
 }
 
 app.post('/user/searchString/', async function (req, res) {
-    console.log(req.body);
+  //  console.log(req.body);
 
 
     let promise1 = callPython(req.body);
