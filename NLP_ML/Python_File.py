@@ -242,6 +242,15 @@ def parse_user_input(user_string):
     output["Billboard Dataset"] = BILLBOARD_DATASET
     output["Other Dataset"] = OTHER_DATASET
 
+    absoulte_graph = dict()
+    absoulte_graph['Length'] = absolute_list[0]
+    absoulte_graph['Most'] = absolute_list[1]
+    absoulte_graph['Average'] = absolute_list[2]
+    absoulte_graph['Unique'] = absolute_list[3]
+    absoulte_graph['WeightLength'] = absolute_list[4]
+    absoulte_graph['WeightUnique'] = absolute_list[5]
+    output['User Graph Features '] = absoulte_graph
+
     output['Absolute Features'] = absolute_list
     output['Normalized Features'] = normalized_list
 
@@ -282,6 +291,7 @@ def parse_user_input(user_string):
         for val in normalized_list:
             index = index + float(val)
         index = (index + verdict)*9.25
+        index = round(index,2)
         if(index>100):
             index = 100
         output['verdict'] = ["POPULAR", index]
