@@ -4,7 +4,6 @@ import axios from 'axios';
 import valuesExport from '../config/config';
 import { Redirect } from 'react-router';
 import moment from 'moment';
-import Table from './table.js';
 
 
 const { TextArea } = Input;
@@ -71,7 +70,7 @@ class Journey extends Component {
                                             <Card.Grid style={{ width: '100%' }} hoverable>
                                                 <Row>
                                                     <Col span={8}>
-                                                        <h3>Lyrics searched: </h3>
+                                                        <h2 style={{fontFamily: 'inherit'}}>Lyrics searched: </h2>
                                                     </Col>
                                                     <Col span={16}>
                                                         <h3 style={{fontFamily: 'unset', color:'#090956'}}><strong>{val.lyrics}</strong></h3>
@@ -80,10 +79,10 @@ class Journey extends Component {
                                                 <Row>
                                                     <Col span={8}>
 
-                                                        <h3>Date: </h3>
+                                                        <h2 style={{fontFamily: 'inherit'}}>Date: </h2>
                                                     </Col>
                                                     <Col span={8}>
-                                                        <h4>{moment(val.date).format('MMM') + ' ' + moment(val.date).format('DD') + ', '
+                                                        <h4 style={{fontFamily: 'unset', color:'#090956'}}>{moment(val.date).format('MMM') + ' ' + moment(val.date).format('DD') + ', '
                                                             + moment(val.date).format('YYYY')}</h4>
                                                     </Col>
                                                 </Row>

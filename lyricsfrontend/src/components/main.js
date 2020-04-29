@@ -16,7 +16,7 @@ class Main extends React.Component {
         <Route path="/welcome/" component={WelcomePage} />
         <Route path="/signin/" component={LoginForm} />
         <Route path="/joinus/" component={RegistrationForm} />
-        <Route path="/user/dashboard/" component={UserHome} />
+        {/* <Route path="/user/dashboard/" component={UserHome} /> */}
         <Route path="/user/home/" component={UserHome} />
 
 

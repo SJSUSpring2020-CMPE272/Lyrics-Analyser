@@ -11,6 +11,9 @@ import Footer from './footer';
 import { Redirect } from 'react-router';
 import UserHome from './userHome';
 import Dashboard from './dashboard';
+import Journey from './journey';
+import {   SmileOutlined } from '@ant-design/icons';
+
 
 const { Header, Content, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -21,6 +24,8 @@ class SideBar extends React.Component {
     user:true,
     load:false,
     selectedKey:'1',
+    journey:false,
+    dashboard:false,
   };
 
   onCollapse = collapsed => {
@@ -31,7 +36,9 @@ class SideBar extends React.Component {
   userClicked = () => {
     this.setState({
       user:true,
-      selectedKey:'1'
+      selectedKey:'1',
+      journey:false,
+      dashboard:false
       })
 
   }
@@ -39,9 +46,21 @@ class SideBar extends React.Component {
     this.setState({
       user:false,
       selectedKey:'2',
+      journey:false,
+      dashboard:true
         
         })
 
+  }
+
+  journeyClicked = () => {
+    this.setState({
+      journey:true,
+      selectedKey:'3',
+      user:false,
+      dashboard:false
+        
+        })
   }
 
   render() {
@@ -67,14 +86,21 @@ class SideBar extends React.Component {
               <DesktopOutlined />
               <span>Dashboard</span>
             </Menu.Item>
+            <Menu.Item key="3" style={{marginTop:'10%'}} onClick={this.journeyClicked}>
+              <  SmileOutlined
+ />
+              <span>Your Journey</span>
+            </Menu.Item>
            
           </Menu>
         </Sider>
         <Content style={{backgroundColor:'white'}}>
           
           <div>           
-            {this.state.user?<UserHome/>:
-            <Dashboard />}
+            {this.state.user&&<UserHome />}
+            {this.state.dashboard&&<Dashboard />}
+            {this.state.journey&&<Journey />}
+
           </div>
 
           
