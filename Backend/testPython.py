@@ -13,13 +13,13 @@ def add_input_string():
         writer.writerow(fields)
 
 #Running NLP script on user input string
-def run_nlp():
-    os.system('python3 ../NLP_ML/Python_File.py ' + input_string)
+def run_nlp(input_string):
+    os.system('python3 ../NLP_ML/Python_File.py ' + '"'+input_string+'"')
 
 #if __name__ == "__main__":
 # Takes first name and last name via command
 # line arguments and then display them
 input_string = sys.argv[1]
-run_nlp()
+run_nlp(input_string)
 with open(OUTPUT_FILE, 'r') as f:
     print(f.read())
