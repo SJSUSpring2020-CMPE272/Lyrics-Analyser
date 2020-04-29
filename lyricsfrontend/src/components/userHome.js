@@ -171,22 +171,22 @@ class UserHome extends Component {
                         barGraphArray: this.state.barGraphArray
                     })
 
-                    await axios.get(valuesExport.url + 'user/pastSearch/' + localStorage.getItem('user_id'))
-                        .then((response) => {
-                            if (response.status === 200) {
-                                if (response.data.searchValues.length) {
-                                    this.setState({
-                                        lyricsSearched: response.data.searchValues
-                                    })
-                                }
-                            }
-                            else {
+                    // await axios.get(valuesExport.url + 'user/pastSearch/' + localStorage.getItem('user_id'))
+                    //     .then((response) => {
+                    //         if (response.status === 200) {
+                    //             if (response.data.searchValues.length) {
+                    //                 this.setState({
+                    //                     lyricsSearched: response.data.searchValues
+                    //                 })
+                    //             }
+                    //         }
+                    //         else {
 
-                            }
-                        })
-                        .catch((e) => {
+                    //         }
+                    //     })
+                    //     .catch((e) => {
 
-                        })
+                    //     })
                 }
             })
             .catch(err => {
@@ -241,6 +241,8 @@ class UserHome extends Component {
             <div>
                 <div>
                     <div style={{ marginTop: '2%', marginLeft: '2%' }}>
+                   
+
                         <Row>
                             <Col span={11}>
                                 <Card title={name} style={{ textAlign: 'center', fontSize: '32px' }}>
