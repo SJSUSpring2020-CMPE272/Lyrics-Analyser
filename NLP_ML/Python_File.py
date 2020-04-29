@@ -281,8 +281,8 @@ def parse_user_input(user_string):
     if verdict > 3.25:
         for val in normalized_list:
             index = index + float(val)
-        index = (index + verdict)*7.5
-        if(index>13):
+        index = (index + verdict)*9.25
+        if(index>100):
             index = 100
         output['verdict'] = ["POPULAR", index]
     else:
