@@ -8,6 +8,10 @@ import Table from './table.js';
 import { trackPromise } from 'react-promise-tracker';
 import WordCloud from "react-d3-cloud";
 import { XYPlot, XAxis, YAxis, HorizontalGridLines, MarkSeries, VerticalBarSeries } from 'react-vis';
+import { Fireworks } from 'fireworks/lib/react'
+
+
+const { Meta } = Card;
 
 const { TextArea } = Input;
 const fontSizeMapper = word => Math.log2(word.value) * 5;
@@ -23,26 +27,13 @@ class UserHome extends Component {
             normTableData: [],
             wordCloudArray: [],
             barGraphArray: [],
+            displayFireworks: false,
+            verdict: '',
         }
     }
 
     async componentDidMount() {
-        await axios.get(valuesExport.url + 'user/pastSearch/' + localStorage.getItem('user_id'))
-            .then((response) => {
-                if (response.status === 200) {
-                    if (response.data.searchValues.length) {
-                        this.setState({
-                            lyricsSearched: response.data.searchValues
-                        })
-                    }
-                }
-                else {
 
-                }
-            })
-            .catch((e) => {
-
-            })
     }
     getStringValue = (e) => {
         this.setState({
@@ -51,11 +42,18 @@ class UserHome extends Component {
     }
 
     submitClicked = () => {
+        this.setState({
+            verdict: ''
+        })
         this.state.tableData = []
         this.state.normTableData = []
         this.state.wordCloudArray = []
         let values = { string: this.state.stringValue, user_id: localStorage.getItem('user_id'), date: moment().format('YYYY/MM/DD') };
         console.log(values)
+        this.setState({
+            barGraphArray:[]
+        })
+
         trackPromise(axios.post(valuesExport.url + 'user/searchString/', JSON.stringify(values), {
             headers: {
                 'Accept': 'application/json',
@@ -91,15 +89,41 @@ class UserHome extends Component {
             WeightUnique: 25.23
                     */
                     var userGraphFeatures = res.data["User Graph Features"]
-                    this.state.barGraphArray.push({ x: 'Length', y: userGraphFeatures["Length"] })
-                    this.state.barGraphArray.push({ x: 'Most', y: userGraphFeatures["Most"] })
-                    this.state.barGraphArray.push({ x: 'Average', y: userGraphFeatures["Average"] })
-                    this.state.barGraphArray.push({ x: 'Unique', y: userGraphFeatures["Unique"] })
-                    this.state.barGraphArray.push({ x: 'WeightLength', y: userGraphFeatures["WeightLength"] })
-                    this.state.barGraphArray.push({ x: 'WeightUnique', y: userGraphFeatures["WeightUnique"] })
+                    let barGraphArrayValue = [];
+                    barGraphArrayValue.push({ x: 'Length', y: userGraphFeatures["Length"] });
+                    barGraphArrayValue.push({ x: 'Most', y: userGraphFeatures["Most"] })
+                    barGraphArrayValue.push({ x: 'Average', y: userGraphFeatures["Average"] })
+                    barGraphArrayValue.push({ x: 'Unique', y: userGraphFeatures["Unique"] })
+                    barGraphArrayValue.push({ x: 'WeightLength', y: userGraphFeatures["WeightLength"] })
+                    barGraphArrayValue.push({ x: 'WeightUnique', y: userGraphFeatures["WeightUnique"] })
+
+                    this.setState({
+                        barGraphArray:barGraphArrayValue
+                    })
+
+                   // this.state.barGraphArray.push({ x: 'Length', y: userGraphFeatures["Length"] })
+                   // this.state.barGraphArray.push({ x: 'Most', y: userGraphFeatures["Most"] })
+                  //  this.state.barGraphArray.push({ x: 'Average', y: userGraphFeatures["Average"] })
+                  //  this.state.barGraphArray.push({ x: 'Unique', y: userGraphFeatures["Unique"] })
+                   // this.state.barGraphArray.push({ x: 'WeightLength', y: userGraphFeatures["WeightLength"] })
+                   // this.state.barGraphArray.push({ x: 'WeightUnique', y: userGraphFeatures["WeightUnique"] })
 
                     console.log(this.state.barGraphArray)
                     console.log(JSON.stringify(this.state.barGraphArray))
+
+                    console.log(res.data.verdict[0]);
+
+                    this.setState({
+                        displayFireworks: true,
+                        verdict: res.data.verdict[0]
+                    });
+                    setTimeout(
+                        function () {
+                            this.setState({ displayFireworks: false, });
+                        }
+                            .bind(this),
+                        1000
+                    );
                     var popular = "Not Popular";
                     var value = res.data['Absolute RFC CLASSIFICATION']
                     value = value.replace(/[\[\]]/g, "");
@@ -237,15 +261,28 @@ class UserHome extends Component {
         } else {
             barGraphComponent = null
         }
+
+        let fxProps = {
+            count: 1,
+            interval: 300,
+            colors: ['red', '#4CAF50', '#81C784'],
+            calc: (props, i) => ({
+                ...props,
+                x: (i + 1) * (window.innerWidth / 4) - (i + 1) * 100,
+                y: 100 + Math.random() * 100 - 50 + (i === 2 ? -80 : 0)
+            })
+        }
+
         return (
             <div>
                 <div>
                     <div style={{ marginTop: '2%', marginLeft: '2%' }}>
-                   
+
+
 
                         <Row>
                             <Col span={11}>
-                                <Card title={name} style={{ textAlign: 'center', fontSize: '32px' }}>
+                                <Card title={name} style={{ textAlign: 'center'}}>
                                     <Card.Grid style={{ width: '100%' }}>
                                         <h3 style={{ font: 'italic bold 20px/30px Georgia, serif' }}>Please enter lyrics string: </h3>
                                         <TextArea rows={4} onChange={this.getStringValue} />
@@ -253,18 +290,37 @@ class UserHome extends Component {
                                     </Card.Grid>
                                 </Card>
                             </Col>
-                            <Col span={11}>{barGraphComponent}</Col>
+<Col span={1}></Col>
+                            <Col span={11}>
+                                {this.state.displayFireworks && <Fireworks {...fxProps} />}
 
+                                {this.state.verdict && <Card
+                                    hoverable
+                                    style={{ width: '100%' }}
+                                    cover={<img alt="example" src={require('../images/result.jpeg')} />}
+                                >
+                                    <Meta title={this.state.verdict} style={{marginLeft:'10%'}}/>
+                                </Card>}
+                            </Col>
 
+                        </Row>
+                        <br></br>
+                        <br></br>
+
+                        <Row>
+                           
+
+                           {this.state.barGraphArray.length ? <Col span={11}>{barGraphComponent}</Col>
+                           :<Col span={11}></Col>}
                         </Row>
                         <Row>
                             <Col span={22}>
-                               { wordCloudComponent && <Card style={{ textAlign: 'center' }}>
+                                {wordCloudComponent && <Card style={{ textAlign: 'center' }}>
                                     <Card.Grid style={{ width: '100%' }}>
                                         {wordCloudComponent}
                                     </Card.Grid>
                                 </Card>
-    }
+                                }
                             </Col>
 
 
@@ -272,22 +328,22 @@ class UserHome extends Component {
                         <Row>
 
                             <Col span={11}>
-                               {myComponent && <Card style={{ textAlign: 'center' }}>
+                                {myComponent && <Card style={{ textAlign: 'center' }}>
                                     <Card.Grid style={{ width: '100%' }}>
                                         {myComponent}
                                     </Card.Grid>
                                 </Card>
-    }
+                                }
 
                             </Col>
 
                             <Col span={11}>
-                              {normComponent &&  <Card style={{ textAlign: 'center' }}>
+                                {normComponent && <Card style={{ textAlign: 'center' }}>
                                     <Card.Grid style={{ width: '100%' }}>
                                         {normComponent}
                                     </Card.Grid>
                                 </Card>
-    }
+                                }
                             </Col>
                         </Row>
 
