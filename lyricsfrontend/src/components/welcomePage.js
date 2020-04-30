@@ -18,21 +18,14 @@ class WelcomePage extends Component {
     }
 
     componentDidMount() {
+        localStorage.clear();
     }
 
 
     render() {
-        const props = {
-            dots: true,
-            infinite: true,
-            speed: 200,
-            slidesToShow: 1,
-            slidesToScroll: 1
-        };
 
         return (
             <div>
-                {this.state.redirect}
                 <div>
                 
                     <Row >
