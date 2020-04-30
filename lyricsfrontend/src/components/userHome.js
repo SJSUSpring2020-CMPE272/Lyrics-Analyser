@@ -8,7 +8,6 @@ import Table from './table.js';
 import { trackPromise } from 'react-promise-tracker';
 import WordCloud from "react-d3-cloud";
 import { XYPlot, XAxis, YAxis, HorizontalGridLines, MarkSeries, VerticalBarSeries } from 'react-vis';
-import { Fireworks } from 'fireworks/lib/react'
 
 
 const { Meta } = Card;
@@ -27,7 +26,6 @@ class UserHome extends Component {
             normTableData: [],
             wordCloudArray: [],
             barGraphArray: [],
-            displayFireworks: false,
             verdict: '',
         }
     }
@@ -111,19 +109,11 @@ class UserHome extends Component {
                     console.log(this.state.barGraphArray)
                     console.log(JSON.stringify(this.state.barGraphArray))
 
-                    console.log(res.data.verdict[0]);
 
                     this.setState({
-                        displayFireworks: true,
                         verdict: res.data.verdict[0]
                     });
-                    setTimeout(
-                        function () {
-                            this.setState({ displayFireworks: false, });
-                        }
-                            .bind(this),
-                        1000
-                    );
+                  
                     var popular = "Not Popular";
                     var value = res.data['Absolute RFC CLASSIFICATION']
                     value = value.replace(/[\[\]]/g, "");
@@ -292,7 +282,7 @@ class UserHome extends Component {
                             </Col>
 <Col span={1}></Col>
                             <Col span={11}>
-                                {this.state.displayFireworks && <Fireworks {...fxProps} />}
+                             
 
                                 {this.state.verdict && <Card
                                     hoverable
