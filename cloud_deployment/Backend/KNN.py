@@ -16,13 +16,13 @@ def run_knn(training_dataset,user_data):
     features = np.array(features)
 
     # Split the data into training and testing sets
-    train_features, test_features, train_labels, test_labels = train_test_split(features, labels, test_size = 0.10, random_state = 10)
+    train_features, test_features, train_labels, test_labels = train_test_split(features, labels, test_size = 0.15)
  #   print('Training Features Shape:', train_features.shape)
  #   print('Training Labels Shape:', train_labels.shape)
  #   print('Testing Features Shape:', test_features.shape)
  #   print('Testing Labels Shape:', test_labels.shape)
 
-    knn = KNeighborsClassifier(n_neighbors=5, metric='euclidean')
+    knn = KNeighborsClassifier(n_neighbors=7, metric='euclidean')
     knn.fit(train_features, train_labels)
 
     predictions = knn.predict(test_features)

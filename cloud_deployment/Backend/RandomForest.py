@@ -20,7 +20,7 @@ def run_random_forest(training_dataset,user_data):
     features = np.array(features)
 
     # Split the data into training and testing sets
-    train_features, test_features, train_labels, test_labels = train_test_split(features, labels, test_size = 0.10, random_state = 10)
+    train_features, test_features, train_labels, test_labels = train_test_split(features, labels, test_size = 0.15)
 #    print('Training Features Shape:', train_features.shape)
 #    print('Training Labels Shape:', train_labels.shape)
 #    print('Testing Features Shape:', test_features.shape)
@@ -39,12 +39,12 @@ def run_random_forest(training_dataset,user_data):
     accuracy1 = accuracy_score(test_labels, predictions1)
 
     # Instantiate model with 100 decision trees
-    rfr = RandomForestRegressor(n_estimators = 100)
+    rfr = RandomForestRegressor(n_estimators = 150)
     # Train the model on training data
     rfr.fit(train_features, train_labels);
 
     # Use the forest's predict method on the test data
     predictions2 = rfr.predict(test_features)
-    resp2 = rfr.predict(input)
+    resp2 = round(float(rfr.predict(input)),2)
 
     return str(resp1) , str(resp2) , round(accuracy1,2)

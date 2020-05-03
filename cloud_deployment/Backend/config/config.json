@@ -1,6 +1,5 @@
 {
     "port":4001,
     "mongoConn":"mongodb+srv://team11:team11@cluster0-3ndil.mongodb.net/test?retryWrites=true&w=majority",
-    "frontendURL": "http://localhost:3000"
-
+    "frontendURL": "http://frontend-loadbalancer-c9a6df710c189904.elb.us-west-2.amazonaws.com"
 }
