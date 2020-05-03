@@ -5,13 +5,17 @@ Install nodejs and npm on host machine.
 #start backend:
 cd Backend
 npm install
-npm start
+node index.js
 
 #start frontend
 cd lyricsfrontend
 npm install
 npm install react-d3-cloud
 npm install react-vis
+npm install react-loader-spinner --save
+npm install react-promise-tracker --save
+npm install fireworks --save
+
 (if any installations error: rm -rf rm -rf package-lock.json )
 npm start
  
