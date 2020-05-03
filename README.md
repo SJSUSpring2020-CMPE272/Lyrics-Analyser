@@ -21,8 +21,11 @@ This tool can be used in the music industry by artists associated with it rangin
 
 # Technology Stack
 Frontend: React, AntDesign CSS 
+
 Backend: NodeJS, express, mongoDB, Python
+
 Deployement: Amazon EC2
+
 Dataset: open source dataset from Kaggle website, consisting of 5000+ popular hit songs 
 
 
