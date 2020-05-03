@@ -23,11 +23,12 @@ This tool can be used in the music industry by artists associated with it rangin
 <img src="Architecture/architecture.png" height="625">
 
 # Technology Stack
+
 Frontend: React, AntDesign CSS 
 
 Backend: NodeJS, express, mongoDB, Python
 
-Deployement: Amazon EC2
+Deployement: Dockers/containers running on Amazon EC2 instances Load balanced with network ELB. 
 
 Dataset: open source dataset from Kaggle website, consisting of 5000+ popular hit songs 
 
