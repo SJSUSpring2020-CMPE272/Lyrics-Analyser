@@ -30,11 +30,11 @@ https://github.com/SJSUSpring2020-CMPE272/Lyrics-Analyser/blob/master/Architectu
 
 Frontend: React, AntDesign CSS ,React-viz, D3-cloud 
 
-Backend: NodeJS, express, mongoDB, Python
+Backend: NodeJS, express, Python, mongoDB 
 
 Libararies : numpy , scikit.learn , Pandas
 
-Deployement: Dockers/containers running on Amazon EC2 instances Load balanced with network ELB. 
+Deployment: Dockers/containers running on Amazon EC2 instances Load balanced with network ELB. 
 
 Dataset: open source dataset from Kaggle website, consisting of 5000+ popular hit songs 
 
