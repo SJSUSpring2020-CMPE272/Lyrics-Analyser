@@ -27,9 +27,11 @@ https://github.com/SJSUSpring2020-CMPE272/Lyrics-Analyser/blob/master/Architectu
 
 # Technology Stack
 
-Frontend: React, AntDesign CSS 
+Frontend: React, AntDesign CSS ,React-viz, D3-cloud 
 
 Backend: NodeJS, express, mongoDB, Python
+
+Libararies : numpy , scikit, Pandas
 
 Deployement: Dockers/containers running on Amazon EC2 instances Load balanced with network ELB. 
 
