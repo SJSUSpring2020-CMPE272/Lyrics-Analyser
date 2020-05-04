@@ -26,6 +26,7 @@ class UserHome extends Component {
             normTableData: [],
             wordCloudArray: [],
             barGraphArray: [],
+            displayFireworks: false,
             verdict: '',
         }
     }
@@ -109,11 +110,19 @@ class UserHome extends Component {
                     console.log(this.state.barGraphArray)
                     console.log(JSON.stringify(this.state.barGraphArray))
 
+                    console.log(res.data.verdict[0]);
 
                     this.setState({
+                        displayFireworks: true,
                         verdict: res.data.verdict[0]
                     });
-                  
+                    setTimeout(
+                        function () {
+                            this.setState({ displayFireworks: false, });
+                        }
+                            .bind(this),
+                        1000
+                    );
                     var popular = "Not Popular";
                     var value = res.data['Absolute RFC CLASSIFICATION']
                     value = value.replace(/[\[\]]/g, "");
@@ -146,7 +155,7 @@ class UserHome extends Component {
 
                     popular = "Not Popular";
                     value = res.data['Normalized RFC CLASSIFICATION']
-                    //  value=value.replace(/[\[\]]/g, "");
+                    value=value.replace(/[\[\]]/g, "");
                     if (parseFloat(value) >= .5)
                         popular = "Popular"
                     this.state.normTableData.push({ 'Algorithm': "Normalized RFC CLASSIFICATION", 'Value': res.data['Normalized RFC CLASSIFICATION'], 'Popular/Not Popular': popular, 'Accuracy': res.data['Normalized RF Accuracy'] });
@@ -282,14 +291,16 @@ class UserHome extends Component {
                             </Col>
 <Col span={1}></Col>
                             <Col span={11}>
-                             
+                                {/* {this.state.displayFireworks && <Fireworks {...fxProps} />} */}
 
                                 {this.state.verdict && <Card
                                     hoverable
                                     style={{ width: '100%' }}
                                     cover={<img alt="example" src={require('../images/result.jpeg')} />}
                                 >
-                                    <Meta title={this.state.verdict} style={{marginLeft:'10%'}}/>
+                                    
+                                <p><strong>{this.state.verdict}</strong></p>
+
                                 </Card>}
                             </Col>
 

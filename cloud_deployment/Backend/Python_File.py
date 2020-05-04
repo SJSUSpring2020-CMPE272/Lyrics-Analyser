@@ -11,7 +11,7 @@ OUTPUT_FILE = "data.txt"
 
 BILLBOARD_DATASET = { 'Len Avg' : 143 , 'Most Rep Avg' : 15.78 , 'Avg Rep' : 9.21 , 'Unique Avg' : 68.5 , 'Normalize Length' : 183 }
 OTHER_DATASET = { 'Len Avg' : 96 , 'Most Rep Avg' : 9.65 , 'Avg Rep' : 5.84 , 'Unique Avg' : 54.85 , 'Normalize Length' : 112 }
-top_1000_words = pd.read_csv("input/top_words.csv")
+top_1000_words = pd.read_csv("../NLP_ML/input/top_words.csv")
 top_words = dict()
 for index, rows in top_1000_words.iterrows():
     top_words[rows[1]] = rows[2]
@@ -214,8 +214,8 @@ def parse_user_input(user_string):
     absolute_list.append(round(songs_words_wt_length, 2))
     absolute_list.append(round(songs_words_wt_unique, 2))
 
-    abs_bb = pd.read_csv("input/billboard_abs_features_dataset.csv")
-    abs_os = pd.read_csv("input/otherds_abs_features_dataset.csv")
+    abs_bb = pd.read_csv("../NLP_ML/input/billboard_abs_features_dataset.csv")
+    abs_os = pd.read_csv("../NLP_ML/input/otherds_abs_features_dataset.csv")
     abs_merged = abs_bb.append(abs_os)
     abs_merged = abs_merged.drop(['Unnamed: 0'],axis=1)
 
@@ -223,8 +223,8 @@ def parse_user_input(user_string):
     Absolute_KNN_Accuracy , Absolute_KNN_Prediction = KNN.run_knn(abs_merged,absolute_list)
     Absolute_LRC_Accuracy , Absolute_LRC = LogisticRegression.run_logreg(abs_merged,absolute_list)
 
-    norm_bb = pd.read_csv("input/billboard_norm_features_dataset.csv")
-    norm_os = pd.read_csv("input/otherds_norm_features_dataset.csv")
+    norm_bb = pd.read_csv("../NLP_ML/input/billboard_norm_features_dataset.csv")
+    norm_os = pd.read_csv("../NLP_ML/input/otherds_norm_features_dataset.csv")
     norm_merged = norm_bb.append(norm_os)
     norm_merged = norm_merged.drop(['Unnamed: 0'],axis=1)
 
@@ -287,11 +287,18 @@ def parse_user_input(user_string):
             index = index + float(val)
         index = (index/6 + verdict/8)*50
         index = round(index,2)
-        if(index>100):
+        if index >= 100:
             index = 100
-        output['verdict'] = ["POPULAR", index]
+        if index >= 92:
+            output['verdict'] = [f"WE ARE {index} % SURE THAT THIS SONG WOULD BE A BLOCKBUSTER HIT" ]
+        elif index >= 80 and index < 92:
+            output['verdict'] = [f"WE ARE {index} % SURE THAT THIS SONG WOULD BE A  SUPER HIT" ]
+        elif index >= 60 and index<80:
+            output['verdict'] = [f"WE ARE {index} % SURE THAT THIS SONG WOULD BE A POPULAR HIT" ]
+        else:
+            output['verdict'] = [f"WE ARE {index} % SURE THAT THIS SONG WOULD BE A HIT, BUT WITH SOME MORE EFFORT, IT COULD TURN OUT TO BE A BLOCKBUSTER HIT" ]
     else:
-        output['verdict'] = ["NEEDS IMPROVEMENT",index]
+        output['verdict'] = ["SORRY, BUT AS PER ANALYSIS THE SONG LYRICS NEEDS CONSIDERABLE IMPROVEMENT TO BE A SUCCESS"]
     #output['Dataset Wordcloud'] = wordcloud_dataset_list
 
 
