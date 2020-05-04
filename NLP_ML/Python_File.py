@@ -287,11 +287,18 @@ def parse_user_input(user_string):
             index = index + float(val)
         index = (index/6 + verdict/8)*50
         index = round(index,2)
-        if(index>100):
+        if index >= 100:
             index = 100
-        output['verdict'] = ["POPULAR", index]
+        if index >= 92:
+            output['verdict'] = [f"WE ARE {index} % SURE THAT THIS SONG WOULD BE A BLOCKBUSTER HIT" ]
+        elif index >= 80 and index < 92:
+            output['verdict'] = [f"WE ARE {index} % SURE THAT THIS SONG WOULD BE A  SUPER HIT" ]
+        elif index >= 60 and index<80:
+            output['verdict'] = [f"WE ARE {index} % SURE THAT THIS SONG WOULD BE A POPULAR HIT" ]
+        else:
+            output['verdict'] = [f"WE ARE {index} % SURE THAT THIS SONG WOULD BE A HIT, BUT WITH SOME MORE EFFORT, IT COULD TURN OUT TO BE A BLOCKBUSTER HIT" ]
     else:
-        output['verdict'] = ["NEEDS IMPROVEMENT",index]
+        output['verdict'] = ["SORRY, BUT AS PER ANALYSIS THE SONG LYRICS NEEDS CONSIDERABLE IMPROVEMENT TO BE A SUCCESS"]
     #output['Dataset Wordcloud'] = wordcloud_dataset_list
 
 
