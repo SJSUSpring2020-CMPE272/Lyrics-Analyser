@@ -22,6 +22,9 @@ This tool can be used in the music industry by artists associated with it rangin
 # Architecture Diagram
 <img src="Architecture/architecture.png" height="625">
 
+Link of architecture diagram:
+https://github.com/SJSUSpring2020-CMPE272/Lyrics-Analyser/blob/master/Architecture/architecture.png
+
 # Technology Stack
 
 Frontend: React, AntDesign CSS 
