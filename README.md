@@ -3,9 +3,12 @@
 
 # Project Name
 
-Lyrics Analyser
+## Lyrics Analyser
 
 # Abstract
+
+There are millions of songs out there. However, only a handful of them can be considered popular. Can we build a system that can predict whether a song can be popular based on it's lyrics? Using advanced NLP and ML techniques, we think this is possible. This tool would have a significant impact on aspiring song writers.
+
 The project is based on natural language processing over the existing lyrical dataset of over 5000+ popular songs and then using machine learning algorithms to generate a prediction model for guessing popularity of new songs based on keywords extracted from the lyrical dataset. The prediction model will be based upon the data extracted from already hit songs and will try to estimate the popularity of new songs based upon song’s length, repetition of words, usage of pop culture keywords. 
 
 We have utilized an open source dataset from Kaggle website, consisting of 5000+ popular hit songs from various genres and timescale. The data consists of many variables like performing artist, genre, total word length, year of release. Through, natural language processing we are extracting key features to prepare our dataset which will be used by machine learning algorithms. Some of the key features in our cleaned dataset are "most often used words", "average length" etc. 
@@ -13,9 +16,7 @@ We have used knn algorithm, random forest, linear regression, logistic regressio
 
 We have developed a website for aspiring song writers. They can register to our system and can view their past searched lyrics. We are also providing visualisation to users based on the cleaned dataset which will help users in deciding which words to include while writing lyrics. It will also help them in gaining insights into behavior and structure of popular songs.  
 
-
 This tool can be used in the music industry by artists associated with it ranging from lyricists, singers and music directors. 
-
 
 
 
