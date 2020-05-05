@@ -32,9 +32,12 @@ class WelcomePage extends Component {
                         <Layout className="layout">
                             <Headers selectedKey={['1']} />
                             <Content style={{ background: 'yellow' }}>
-                                <div style={{ backgroundColor: 'yellow' }}>
+                                <div >
                                     <br></br>
-
+                                   
+                                    <Row>
+                                        <h1 style={{marginLeft:'30%', fontFamily:'inherit'}}>LYRICS ANALYSER FOR ASPIRING SONG-WRITERS</h1>
+                                    </Row>
                                     <Row>
                                         <Col span={6}>
 
