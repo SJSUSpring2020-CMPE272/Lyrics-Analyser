@@ -33,6 +33,7 @@ Input string 2:
 an American multinational conglomerate technology company based in Seattle, with 750,000 employees.[8] It focuses on e-commerce, cloud computing, digital streaming, and artificial intelligence. It is considered one of the Big Four tech companies, along with Google, Apple, and Microsoft.[9][10][11] It has been referred to as "one of the most influential economic and cultural forces in the world."[12] Amazon is known for its disruption of well-established industries through technological innovation and mass scale.[13][14][15] It is the world's largest online marketplace, AI assistant provider, and cloud computing platform[16] as measured by revenue and market capitalization.[17] Amazon is the largest Internet company by revenue in the world.[18] It is the second largest private employer in the United States[19] and one of the world's most valuable companies. Amazon was founded by Jeff Bezos in Bellevue, Washington, in July 1994. The company initially started as an online marketplace for books but later expanded to sell electronics, software, video games, apparel, furniture, food, toys, and jewelry. In 2015, Amazon surpassed Walmart as the most valuable retailer in the United States by market capitalization.[20] In 2017, Amazon acquired Whole Foods Market for US$13.4 billion, which vastly increased Amazon's presence as a brick-and-mortar retailer.[21] In 2018, Bezos announced that its two-day delivery service, Amazon Prime, had surpassed 100 million subscribers worldwide.
 
 Output 2:
+<img src="outputScreenshots/output2.png" height="500">
 
 Input String 3: 
 
@@ -61,6 +62,8 @@ Your voice is calling to me in my dreams
 My love is stronger than it's ever been"
 
 Output 3:
+<img src="outputScreenshots/output3.png" height="500">
+
 
 Input String 4:
 
@@ -140,6 +143,8 @@ But that's what you get
 When you play a country song backwards
 
 Output 4:
+<img src="outputScreenshots/output4.png" height="500">
+
 
 Input String 5:
 
@@ -222,6 +227,7 @@ Say the word, on my way
 
 
 Output 5:
+<img src="outputScreenshots/output5.png" height="500">
 
 
 
